@@ -13,7 +13,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Badge } from "antd";
 import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
-import "./style.module.css";
+import { link } from "./style.module.css";
 const pages = ["Products", "Pricing", "Blog"];
 
 function Header() {
@@ -118,9 +118,11 @@ function Header() {
                 LOGO
               </Typography>
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-                <NavLink to={"/"}>Products</NavLink>
-                <NavLink>Pricing</NavLink>
-                <NavLink>Blog</NavLink>
+                <NavLink className={link} to={"/"}>
+                  Products
+                </NavLink>
+                <NavLink className={link}>Pricing</NavLink>
+                <NavLink className={link}>Blog</NavLink>
               </Box>
               <Link to={"/cart"}>
                 <Badge count={cart.length}>
