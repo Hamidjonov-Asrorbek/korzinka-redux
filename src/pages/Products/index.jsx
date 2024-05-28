@@ -7,17 +7,23 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setProducts } from "../../store/ProductsSlice";
 import { addToCart } from "../../store/cartSlice";
+import loadergif from "/src/assets/loader.gif";
 
 const { Meta } = Card;
 
 function Products() {
+  const [loader, setLoader] = useState(false);
   const products = useSelector((state) => state.products);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch([]);
   useEffect(() => {
+    setLoader(true);
     fetch("https://fakestoreapi.com/products")
       .then((res) => res.json())
-      .then((data) => dispatch(setProducts(data)));
+      .then((data) => {
+        dispatch(setProducts(data));
+        setLoader(false);
+      });
   }, []);
   return (
     <>
@@ -27,6 +33,7 @@ function Products() {
           style={{ display: "flex", flexDirection: "column" }}
         >
           <Title text={"Products"} />
+          {loader && <img src={loadergif} className="loader"></img>}
           <div
             className="products"
             style={{ display: "flex", flexWrap: "wrap" }}
