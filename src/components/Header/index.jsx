@@ -124,7 +124,7 @@ function Header() {
                 <NavLink className={link}>Pricing</NavLink>
                 <NavLink className={link}>Blog</NavLink>
               </Box>
-              <Link to={"/cart"}>
+              <Link className={link} to={"/cart"}>
                 <Badge count={cart.length}>
                   <ShoppingCartIcon
                     style={{ color: "white", fontSize: "35px" }}
