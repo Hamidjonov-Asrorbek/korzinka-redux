@@ -5,6 +5,8 @@ import { AddShoppingCartOutlined, Delete } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { icon } from "./style.module.css";
 import { deleteToCart } from "../../store/cartSlice";
+import { NavLink } from "react-router-dom";
+import { Button } from "@mui/material";
 
 function Cards() {
   const cards = useSelector((state) => state.cart);
@@ -67,16 +69,30 @@ function Cards() {
               );
             })
           ) : (
-            <h1
-              style={{
-                textAlign: "center",
-                fontSize: "40px",
-                color: "red",
-                marginTop: "50px",
-              }}
-            >
-              Card is empty !
-            </h1>
+            <div>
+              <h1
+                style={{
+                  textAlign: "center",
+                  fontSize: "40px",
+                  color: "red",
+                  marginTop: "50px",
+                }}
+              >
+                Card is empty !
+              </h1>
+              <Button variant="contained" style={{ marginTop: "50px" }}>
+                <NavLink
+                  style={{
+                    color: "white",
+                    textDecoration: "none",
+                    fontSize: "25px",
+                  }}
+                  to={"/"}
+                >
+                  Choose product
+                </NavLink>
+              </Button>
+            </div>
           )}
         </div>
       </div>
