@@ -13,15 +13,15 @@ const { Meta } = Card;
 
 function Products() {
   const [loader, setLoader] = useState(false);
-  const products = useSelector((state) => state.products);
+  const products = useSelector((state) => state.products.data);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch([]);
   useEffect(() => {
     setLoader(true);
-    fetch("https://fakestoreapi.com/products")
+    fetch("https://dummyjson.com/products")
       .then((res) => res.json())
       .then((data) => {
-        dispatch(setProducts(data));
+        dispatch(setProducts(data.products));
         setLoader(false);
       });
   }, []);
@@ -39,7 +39,7 @@ function Products() {
             style={{ display: "flex", flexWrap: "wrap" }}
           >
             {products.length > 0 &&
-              products.map(({ id, title, price, description, image }) => {
+              products.map(({ id, title, price, description, thumbnail }) => {
                 return (
                   <Card
                     hoverable
@@ -49,7 +49,12 @@ function Products() {
                       margin: "16px",
                     }}
                     cover={
-                      <img alt={title} src={image} width={300} height={250} />
+                      <img
+                        alt={title}
+                        src={thumbnail}
+                        width={300}
+                        height={250}
+                      />
                     }
                   >
                     <Meta
@@ -76,7 +81,13 @@ function Products() {
                       <AddShoppingCartOutlined
                         onClick={() =>
                           dispatch(
-                            addToCart({ id, title, price, description, image })
+                            addToCart({
+                              id,
+                              title,
+                              price,
+                              description,
+                              thumbnail,
+                            })
                           )
                         }
                         className={icon}

@@ -44,8 +44,26 @@ const cartSlice = createSlice({
       }
       saveStateToLocalStorage(state);
     },
+    increment: (state, action) => {
+      console.log(state);
+      console.log(action);
+      const item = state.find((item) => item.id === action.payload);
+      console.log(item);
+      if (item) {
+        item.price += item.price;
+      }
+      saveStateToLocalStorage(state);
+    },
+    decrement: (state, action) => {
+      const item = state.find((item) => item.id === action.payload);
+      if (item) {
+        item.price -= item.price;
+      }
+      saveStateToLocalStorage(state);
+    },
   },
 });
 
-export const { addToCart, deleteToCart } = cartSlice.actions;
+export const { addToCart, deleteToCart, increment, decrement } =
+  cartSlice.actions;
 export default cartSlice.reducer;

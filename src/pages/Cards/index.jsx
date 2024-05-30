@@ -1,16 +1,17 @@
 import React from "react";
 import Title from "../Title";
 import { Card } from "antd";
-import { AddShoppingCartOutlined, Delete } from "@mui/icons-material";
+import { Delete } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { icon } from "./style.module.css";
 import { deleteToCart } from "../../store/cartSlice";
 import { NavLink } from "react-router-dom";
 import { Button } from "@mui/material";
+import QuantityInput from "../../components/Quantity";
 
 function Cards() {
   const cards = useSelector((state) => state.cart);
-  const dispatch = useDispatch([]);
+  const dispatch = useDispatch();
   console.log(cards);
   return (
     <section>
@@ -21,7 +22,7 @@ function Cards() {
         <Title text={"Cards"} />
         <div className="cards" style={{ display: "flex", flexWrap: "wrap" }}>
           {cards.length > 0 ? (
-            cards.map(({ id, title, price, description, image }) => {
+            cards.map(({ id, title, price, description, thumbnail }) => {
               return (
                 <Card
                   hoverable
@@ -31,7 +32,7 @@ function Cards() {
                     margin: "16px",
                   }}
                   cover={
-                    <img alt={title} src={image} width={400} height={350} />
+                    <img alt={title} src={thumbnail} width={400} height={350} />
                   }
                 >
                   <Card.Meta
@@ -55,12 +56,14 @@ function Cards() {
                     }}
                   >
                     <h3 style={{ fontSize: "20px" }}>{price}$</h3>
+                    <QuantityInput id={id} />
+                    {/* <div className="quantity">
+                      <button>+</button>
+                      <p></p>
+                      <button>-</button>
+                    </div> */}
                     <Delete
-                      onClick={() =>
-                        dispatch(
-                          deleteToCart({ id, title, price, description, image })
-                        )
-                      }
+                      onClick={() => dispatch(deleteToCart(id))}
                       className={icon}
                       fontSize="large"
                     />
