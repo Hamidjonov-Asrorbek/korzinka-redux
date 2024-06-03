@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 
 const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
   const { id } = props;
-  console.log(props);
   const dispatch = useDispatch();
   return (
     <BaseNumberInput
@@ -47,8 +46,8 @@ export default function QuantityInput(props) {
       aria-label="Quantity Input"
       min={1}
       max={99}
-      id={id}
       defaultValue={1}
+      {...props}
     />
   );
 }

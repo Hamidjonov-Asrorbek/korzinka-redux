@@ -26,7 +26,8 @@ function Header() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart.products);
+  console.log(cart);
   return (
     <header
       style={{

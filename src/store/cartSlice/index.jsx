@@ -4,12 +4,14 @@ const loadStateFromLocalStorage = () => {
   try {
     const serializedState = localStorage.getItem("cart");
     if (serializedState === null) {
-      return [];
+      return { products: [] };
     }
-    return JSON.parse(serializedState);
+    return { products: JSON.parse(serializedState) };
   } catch (e) {
     console.warn("Could not load state from local storage", e);
-    return [];
+    return {
+      products: [],
+    };
   }
 };
 const saveStateToLocalStorage = (state) => {
@@ -26,36 +28,37 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      const existingItem = state.find((item) => item.id === action.payload.id);
+      const existingItem = state.products.find(
+        (item) => item.id === action.payload.id
+      );
+      console.log(existingItem);
       if (existingItem) {
         message.warning("Item already in cart");
         existingItem.count += 1;
       } else {
-        state.push({ ...action.payload, count: 1 });
-        message.success("Item added in cart");
+        state.products.push({ ...action.payload, count: 1 });
+        message.success("Item added to cart");
       }
-      saveStateToLocalStorage(state);
+      saveStateToLocalStorage(state.products);
     },
+
     deleteToCart: (state, action) => {
-      const index = state.findIndex((item) => item.id === action.payload.id);
-      if (index !== -1) {
-        state.splice(index, 1);
-        message.success("Item deleted from cart");
-      }
-      saveStateToLocalStorage(state);
+      // const index = state.products.find((item) => item.id === action.payload);
+      const index = state.products.filter((item) => item.id !== action.payload);
+      state.products = index;
+      message.success("Item deleted from cart");
+      saveStateToLocalStorage(state.products);
     },
     increment: (state, action) => {
-      console.log(state);
-      console.log(action);
-      const item = state.find((item) => item.id === action.payload);
+      const item = state.products.filter((item) => item.id == action.payload);
       console.log(item);
       if (item) {
         item.price += item.price;
       }
-      saveStateToLocalStorage(state);
+      saveStateToLocalStorage(state.products);
     },
     decrement: (state, action) => {
-      const item = state.find((item) => item.id === action.payload);
+      const item = state.find((item) => item.id == action.payload);
       if (item) {
         item.price -= item.price;
       }

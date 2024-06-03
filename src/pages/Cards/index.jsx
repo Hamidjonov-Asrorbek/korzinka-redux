@@ -10,9 +10,8 @@ import { Button } from "@mui/material";
 import QuantityInput from "../../components/Quantity";
 
 function Cards() {
-  const cards = useSelector((state) => state.cart);
+  const cards = useSelector((state) => state.cart.products);
   const dispatch = useDispatch();
-  console.log(cards);
   return (
     <section>
       <div
@@ -22,7 +21,7 @@ function Cards() {
         <Title text={"Cards"} />
         <div className="cards" style={{ display: "flex", flexWrap: "wrap" }}>
           {cards.length > 0 ? (
-            cards.map(({ id, title, price, description, thumbnail }) => {
+            cards.map(({ id, title, price, description = "", thumbnail }) => {
               return (
                 <Card
                   hoverable
@@ -56,12 +55,7 @@ function Cards() {
                     }}
                   >
                     <h3 style={{ fontSize: "20px" }}>{price}$</h3>
-                    <QuantityInput id={id} />
-                    {/* <div className="quantity">
-                      <button>+</button>
-                      <p></p>
-                      <button>-</button>
-                    </div> */}
+                    <QuantityInput id={id.toString()} />
                     <Delete
                       onClick={() => dispatch(deleteToCart(id))}
                       className={icon}
