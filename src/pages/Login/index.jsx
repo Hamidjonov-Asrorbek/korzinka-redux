@@ -33,7 +33,7 @@ function Login() {
         const user = userCredential.user;
         console.log(user);
         message.success("Login successful");
-        navigate("/");
+        navigate("/layout");
       })
       .catch((error) => {
         const errorCode = error.code;
