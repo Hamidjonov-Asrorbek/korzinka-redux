@@ -60,13 +60,14 @@ function App() {
           element={
             <Redirect>
               <Layout />
-              <Products />
-              <Cards />
+              {/* <Products />
+              <Cards /> */}
             </Redirect>
           }
-        ></Route>
-        <Route path="/products" element={<Products />}></Route>
-        <Route path="/cart" element={<Cards />}></Route>
+        >
+          <Route path="/layout/products" element={<Products />}></Route>
+          <Route path="/layout/cart" element={<Cards />}></Route>
+        </Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<SignUp />}></Route>
       </>

@@ -119,13 +119,13 @@ function Header() {
                 LOGO
               </Typography>
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-                <NavLink className={link} to={"/"}>
+                <NavLink className={link} to={"/layout/products"}>
                   Products
                 </NavLink>
                 <NavLink className={link}>Pricing</NavLink>
                 <NavLink className={link}>Blog</NavLink>
               </Box>
-              <Link className={link} to={"/cart"}>
+              <Link className={link} to={"/layout/cart"}>
                 <Badge count={cart.length}>
                   <ShoppingCartIcon
                     style={{ color: "white", fontSize: "35px" }}

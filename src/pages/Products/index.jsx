@@ -40,64 +40,66 @@ function Products() {
             style={{ display: "flex", flexWrap: "wrap" }}
           >
             {products.length > 0 &&
-              products.map(({ id, title, price, description, thumbnail }) => {
-                return (
-                  <Card
-                    hoverable
-                    key={id}
-                    style={{
-                      width: 300,
-                      margin: "16px",
-                    }}
-                    cover={
-                      <img
-                        alt={title}
-                        src={thumbnail}
-                        width={300}
-                        height={250}
-                      />
-                    }
-                  >
-                    <Meta
+              products.map(
+                ({ id, title, price, description, thumbnail }, ind) => {
+                  return (
+                    <Card
+                      hoverable
+                      key={ind}
                       style={{
-                        height: "150px",
-                        fontSize: "15px",
-                        borderTop: "2px solid black",
-                        paddingTop: "10px",
+                        width: 300,
+                        margin: "16px",
                       }}
-                      title={title}
-                      description={
-                        description.split(" ").slice(0, 15).join(" ") + "..."
+                      cover={
+                        <img
+                          alt={title}
+                          src={thumbnail}
+                          width={300}
+                          height={250}
+                        />
                       }
-                    />
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        marginTop: "auto",
-                      }}
                     >
-                      <h3 style={{ fontSize: "20px" }}>{price}$</h3>
-                      <AddShoppingCartOutlined
-                        onClick={() =>
-                          dispatch(
-                            addToCart({
-                              id,
-                              title,
-                              price,
-                              description,
-                              thumbnail,
-                            })
-                          )
+                      <Meta
+                        style={{
+                          height: "150px",
+                          fontSize: "15px",
+                          borderTop: "2px solid black",
+                          paddingTop: "10px",
+                        }}
+                        title={title}
+                        description={
+                          description.split(" ").slice(0, 15).join(" ") + "..."
                         }
-                        className={icon}
-                        fontSize="large"
                       />
-                    </div>
-                  </Card>
-                );
-              })}
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          marginTop: "auto",
+                        }}
+                      >
+                        <h3 style={{ fontSize: "20px" }}>{price}$</h3>
+                        <AddShoppingCartOutlined
+                          onClick={() =>
+                            dispatch(
+                              addToCart({
+                                id,
+                                title,
+                                price,
+                                description,
+                                thumbnail,
+                              })
+                            )
+                          }
+                          className={icon}
+                          fontSize="large"
+                        />
+                      </div>
+                    </Card>
+                  );
+                }
+              )}
           </div>
         </div>
       </section>

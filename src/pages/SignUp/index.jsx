@@ -35,7 +35,7 @@ function SignUp() {
         const user = userCredential.user;
         console.log(user);
         message.success("Registration successful!");
-        navigate("/layout");
+        navigate("/layout/products");
         localStorage.setItem("user", JSON.stringify(user));
       })
       .catch((error) => {
