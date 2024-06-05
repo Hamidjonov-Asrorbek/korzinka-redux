@@ -12,11 +12,12 @@ import {
 } from "antd";
 import { wrapper, site_form_item_icon } from "./style.module.css";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 
 const { Title } = Typography;
+
 function Login() {
   const navigate = useNavigate();
   const [form] = Form.useForm();
@@ -24,6 +25,7 @@ function Login() {
     email: "",
     password: "",
   });
+
   const handleLogin = () => {
     console.log(formLogin);
     signInWithEmailAndPassword(auth, formLogin.email, formLogin.password)
@@ -46,14 +48,18 @@ function Login() {
           case "auth/invalid-email":
             message.error("The email address is not valid.");
             break;
-          case "auth/weak-password":
-            message.error("The password is too weak.");
+          case "auth/wrong-password":
+            message.error("The password is incorrect.");
+            break;
+          case "auth/user-not-found":
+            message.error("No user found with this email.");
             break;
           default:
             message.error(errorMessage);
         }
       });
   };
+
   return (
     <div className={wrapper}>
       <Row justify="center" align="middle" style={{ minHeight: "100vh" }}>
@@ -63,6 +69,7 @@ function Login() {
               Login
             </Title>
             <Form
+              form={form}
               name="login"
               initialValues={{ remember: true }}
               onFinish={handleLogin}
@@ -88,6 +95,11 @@ function Login() {
                 name="password"
                 rules={[
                   { required: true, message: "Please input your Password!" },
+                  {
+                    pattern: /^(?=.*[a-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/,
+                    message:
+                      "Password must be at least 8 characters long, include uppercase and lowercase letters, a number, and a special character!",
+                  },
                 ]}
                 style={{ marginTop: "30px" }}
               >
@@ -135,4 +147,5 @@ function Login() {
     </div>
   );
 }
+
 export default Login;

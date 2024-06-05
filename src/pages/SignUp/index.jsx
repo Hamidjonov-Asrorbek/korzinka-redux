@@ -11,8 +11,8 @@ import {
 } from "antd";
 import { wrapper, site_form_item_icon } from "./style.module.css";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import { useState } from "react";
 
@@ -57,6 +57,11 @@ function SignUp() {
             message.error(errorMessage);
         }
       });
+    updateProfile(auth.currentUser, {
+      displayName: formData.displayName,
+    }).catch((error) => {
+      console.error(`Error [${error.code}]: ${error.message}`);
+    });
   };
 
   return (
